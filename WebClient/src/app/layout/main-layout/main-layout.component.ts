@@ -1,29 +1,76 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
-@Component({
-  selector: 'app-main-layout',
-  standalone: true,
-  imports: [RouterLink, RouterOutlet],
-  template: `
-    <div style="display:flex; min-height:100vh; background:#f3f4f6;">
-      <aside style="width:240px; background:#111827; color:white; padding:24px;">
-        <h2 style="margin:0 0 24px;">Massage POS</h2>
-
-        <nav style="display:flex; flex-direction:column; gap:12px;">
-          <a routerLink="/dashboard" style="color:white; opacity:0.9;">Dashboard</a>
-          <a routerLink="/pos" style="color:white; opacity:0.9;">POS</a>
-          <a routerLink="/customers" style="color:white; opacity:0.9;">Customers</a>
-          <a routerLink="/products" style="color:white; opacity:0.9;">Products</a>
-          <a routerLink="/sales" style="color:white; opacity:0.9;">Sales</a>
-          <a routerLink="/settings" style="color:white; opacity:0.9;">Settings</a>
-        </nav>
-      </aside>
-
-      <main style="flex:1; padding:24px;">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
-  `
-})
-export class MainLayoutComponent {}
+export const routes: Routes = [
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/auth/login/login.component').then((m) => m.LoginComponent)
+  },
+  {
+    path: '',
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent)
+      },
+      {
+        path: 'pos',
+        loadComponent: () => import('./pages/pos/pos.component').then((m) => m.PosComponent)
+      },
+      {
+        path: 'booking',
+        loadComponent: () => import('./pages/booking/booking.component').then((m) => m.BookingComponent)
+      },
+      {
+        path: 'rooms',
+        loadComponent: () => import('./pages/rooms/rooms.component').then((m) => m.RoomsComponent)
+      },
+      {
+        path: 'customers',
+        loadComponent: () => import('./pages/customers/customers.component').then((m) => m.CustomersComponent)
+      },
+      {
+        path: 'therapists',
+        loadComponent: () => import('./pages/therapists/therapists.component').then((m) => m.TherapistsComponent)
+      },
+      {
+        path: 'packages',
+        loadComponent: () => import('./pages/packages/packages.component').then((m) => m.PackagesComponent)
+      },
+      {
+        path: 'promotions',
+        loadComponent: () => import('./pages/promotions/promotions.component').then((m) => m.PromotionsComponent)
+      },
+      {
+        path: 'inventory',
+        loadComponent: () => import('./pages/inventory/inventory.component').then((m) => m.InventoryComponent)
+      },
+      {
+        path: 'finance',
+        loadComponent: () => import('./pages/finance/finance.component').then((m) => m.FinanceComponent)
+      },
+      {
+        path: 'reports',
+        loadComponent: () => import('./pages/reports/reports.component').then((m) => m.ReportsComponent)
+      },
+      {
+        path: 'analytics',
+        loadComponent: () => import('./pages/analytics/analytics.component').then((m) => m.AnalyticsComponent)
+      },
+      {
+        path: 'settings',
+        loadComponent: () => import('./pages/settings/settings.component').then((m) => m.SettingsComponent)
+      },
+      {
+        path: 'admin',
+        loadComponent: () => import('./pages/admin/admin.component').then((m) => m.AdminComponent)
+      }
+    ]
+  }
+];
