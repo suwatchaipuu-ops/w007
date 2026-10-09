@@ -1,0 +1,16 @@
+export const navItems = [
+  { label: 'Dashboard', path: '/dashboard' },
+  { label: 'POS / ขาย', path: '/pos' },
+  { label: 'Booking', path: '/booking' },
+  { label: 'ห้อง / เตียง', path: '/rooms' },
+  { label: 'ลูกค้า', path: '/customers' },
+  { label: 'Therapist', path: '/therapists' },
+  { label: 'Package', path: '/packages' },
+  { label: 'Promotion', path: '/promotions' },
+  { label: 'Inventory', path: '/inventory' },
+  { label: 'การเงิน', path: '/finance' },
+  { label: 'Reports', path: '/reports' },
+  { label: 'Analytics', path: '/analytics' },
+  { label: 'ตั้งค่า', path: '/settings' },
+  { label: 'Administration', path: '/admin' },
+];

@@ -1,12 +1,30 @@
-body {
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --text: #111827;
+  --primary: #2563eb;
+  --primary-2: #3b82f6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --border: #e5e7eb;
+}
+
+html, body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f7fb;
-  color: #1f2937;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+button, input, select {
+  font: inherit;
 }
 
 a {

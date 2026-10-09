@@ -1,39 +1,30 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
-@Component({
-  selector: 'app-main-layout',
-  standalone: true,
-  imports: [RouterLink, RouterOutlet],
-  template: `
-    <div style="display:flex; min-height:100vh; background:#f3f4f6;">
-      <aside style="width:260px; background:#111827; color:white; padding:20px 16px;">
-        <div style="margin-bottom:24px; padding:12px 10px; border-bottom:1px solid rgba(255,255,255,0.12);">
-          <h2 style="margin:0; font-size:1.3rem;">Massage POS</h2>
-        </div>
-
-        <nav style="display:flex; flex-direction:column; gap:8px;">
-          <a routerLink="/dashboard" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Dashboard</a>
-          <a routerLink="/pos" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">POS / ขาย</a>
-          <a routerLink="/booking" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Booking</a>
-          <a routerLink="/rooms" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">ห้อง / เตียง</a>
-          <a routerLink="/customers" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">ลูกค้า</a>
-          <a routerLink="/therapists" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Therapist</a>
-          <a routerLink="/packages" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Package</a>
-          <a routerLink="/promotions" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Promotion</a>
-          <a routerLink="/inventory" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Inventory</a>
-          <a routerLink="/finance" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">การเงิน</a>
-          <a routerLink="/reports" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Reports</a>
-          <a routerLink="/analytics" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Analytics</a>
-          <a routerLink="/settings" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">ตั้งค่า</a>
-          <a routerLink="/admin" style="color:#e5e7eb; text-decoration:none; padding:10px 12px; border-radius:10px;">Administration</a>
-        </nav>
-      </aside>
-
-      <main style="flex:1; padding:24px;">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
-  `
-})
-export class MainLayoutComponent {}
+export const routes: Routes = [
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/auth/login/login.component').then((m) => m.LoginComponent),
+  },
+  {
+    path: '',
+    canActivate: [authGuard],
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', loadComponent: () => import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent) },
+      { path: 'pos', loadComponent: () => import('./pages/pos/pos.component').then((m) => m.PosComponent) },
+      { path: 'booking', loadComponent: () => import('./pages/booking/booking.component').then((m) => m.BookingComponent) },
+      { path: 'rooms', loadComponent: () => import('./pages/rooms/rooms.component').then((m) => m.RoomsComponent) },
+      { path: 'customers', loadComponent: () => import('./pages/customers/customers.component').then((m) => m.CustomersComponent) },
+      { path: 'therapists', loadComponent: () => import('./pages/therapists/therapists.component').then((m) => m.TherapistsComponent) },
+      { path: 'packages', loadComponent: () => import('./pages/packages/packages.component').then((m) => m.PackagesComponent) },
+      { path: 'promotions', loadComponent: () => import('./pages/promotions/promotions.component').then((m) => m.PromotionsComponent) },
+      { path: 'inventory', loadComponent: () => import('./pages/inventory/inventory.component').then((m) => m.InventoryComponent) },
+      { path: 'finance', loadComponent: () => import('./pages/finance/finance.component').then((m) => m.FinanceComponent) },
+      { path: 'reports', loadComponent: () => import('./pages/reports/reports.component').then((m) => m.ReportsComponent) },
+      { path: 'analytics', loadComponent: () => import('./pages/analytics/analytics.component').then((m) => m.AnalyticsComponent) },
+      { path: 'settings', loadComponent: () => import('./pages/settings/settings.component').then((m) => m.SettingsComponent) },
+      { path: 'admin', loadComponent: () => import('./pages/admin/admin.component').then((m) => m.AdminComponent) },
+    ],
+  },
+];
