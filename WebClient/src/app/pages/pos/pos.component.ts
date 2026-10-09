@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 type Service = {
   id: number;
@@ -17,6 +18,7 @@ type CartItem = Service & {
 @Component({
   selector: 'app-pos',
   standalone: true,
+  imports: [CommonModule],
   template: `
     <section style="display:grid; grid-template-columns: 1.75fr 0.95fr; gap:20px;">
       <div style="background:white; border-radius:18px; padding:20px; box-shadow:0 8px 20px rgba(15,23,42,0.06);">
